@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>P5LIVE – sketch</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		body{
+			margin:0;
+		}
+		canvas{
+			width:100vw;
+			height:100vh;
+			margin:0;
+
+		}
+		#catchfocus{
+			position: fixed;
+			width:100vw;
+			height:100vh;
+			top:0;
+			left:0;
+			z-index:99;
+		}
+	</style>
+	<script type="text/javascript">
+		var p5p = parent.document;
+		var p5code = p5p.getElementById('p5-code');
+
+		var statusTimer; 
+		function sketchStatus(){
+			if(p5.instance._setupDone){
+				clearTimeout(statusTimer);
+				var myCustomData = {'status': true, 'hello':'hi'};
+				var event = new CustomEvent('myEvent', { detail: myCustomData });
+				window.parent.document.dispatchEvent(event);
+			}else{
+				statusTimer = setTimeout(function(){sketchStatus();}, 50);
+			}
+		}
+	</script>
+</head>
+<body>
+
+
+</body>
+</html>

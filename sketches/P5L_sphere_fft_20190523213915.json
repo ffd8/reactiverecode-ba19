@@ -1,0 +1,8 @@
+{
+  "sketches": [
+    {
+      "sketchName": "sphere_fft",
+      "sketchCode": "let credits = {\"student_names\": \"firstname lastname, firstname2 lastname2\",\"recode_artist\": \"Artist[s] firstname lastname\",\"recode_title\": \"Name of work\",\"recode_year\": 1961 }\n\nfunction setup() {\n\tcreateCanvas(windowWidth, windowHeight, WEBGL);\n\n\tsetupAudio();\n\tnoStroke();\n\tfill(255);\n}\n\nfunction draw() {\n\tbackground(0);\n\tlights();\n\tupdateAudio();\n\tlet lc = 10;\n\tfor(let i = 0; i < lc; i++) {\n\t\tfor(let j = 0; j < lc; j++) {\n\t\t\tlet x = map(i, 0, lc - 1, -width / 2, width / 2);\n\t\t\tlet y = map(j, 0, lc - 1, -height / 2, height / 2);\n\t\t\tlet s = map(fft[floor(map(i, 0, lc - 1, 0, fft.length))], 0, 255, 15, 80);\n\t\t\tpush();\n\t\t\ttranslate(x, y)\n\t\t\tsphere(s, 5, 5);\n\t\t\tpop();\n\t\t}\n\t}\n}\n\n/* AUDIO INIT */\nlet mic, fftRaw, fft, waveform, amp = 0.0,\n\tampEase = 0.0,\n\tnumBins = 512,\n\tbands = 12;\n\nfunction setupAudio() {\n\tmic = new p5.AudioIn();\n\tmic.start();\n\tfftRaw = new p5.FFT(0.75, numBins);\n\tfftRaw.setInput(mic);\n}\n\nfunction updateAudio() {\n\tfftRaw.analyze();\n\tamp = mic.getLevel() * 1000; // average amplitude\n\tampEase = ease(amp, ampEase, 0.075); // smooth 'amp'\n\twaveform = fftRaw.waveform(); // array (-1, 1)\n\tfft = fftRaw.logAverages(fftRaw.getOctaveBands(bands)); // array (0, 255)\n}"
+    }
+  ]
+}

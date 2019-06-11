@@ -1,0 +1,8 @@
+{
+  "sketches": [
+    {
+      "sketchName": "star_explorer",
+      "sketchCode": "let credits = {\"student_names\": \"firstname lastname, firstname2 lastname2\",\"recode_artist\": \"Artist[s] firstname lastname\",\"recode_title\": \"Name of work\",\"recode_year\": 1961 }\nfunction setup() {\n\tcreateCanvas(windowWidth, windowHeight);\n\n}\n\nfunction draw() {\n\tbackground(0);\n\tfill(255);\n\ttranslate(width / 2, height / 2);\n\tlet lc = 30;\n\tbeginShape();\n\tfor(let i = 0; i < lc; i++) {\n\t\tlet r = height/3;\n\t\tif(i % 2 == 0)\n\t\t\tr = mouseY/2;\n\t\tlet x = sin(i * TWO_PI / lc) * r; // i*2\n\t\tlet y = cos(i * TWO_PI / lc) * r;\n\t\tvertex(x, y)\n\t}\n\tendShape();\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "sketches": [
+    {
+      "sketchName": "rect_rot",
+      "sketchCode": "let credits = {\"student_names\": \"someone blah, something else\",\"recode_artist\": \"this person\",\"recode_title\": \"something\",\"recode_year\": 1951 }\nfunction setup() {\n\tcreateCanvas(windowWidth, windowHeight);\n\trectMode(CENTER);\n\tsetupAudio();\n}\n\nfunction draw() {\n\tbackground(0, 10);\n\t/* audio vars: amp, ampEase, fft, waveform */\n\tupdateAudio();\n\ttranslate(width / 2, height / 2);\n\trotate(radians(ampEase));\n\trect(0, 0, ampEase, ampEase);\n\n}\n/* END RECODE */\n\n/* AUDIO INIT */\nlet mic, fftRaw, fft, waveform, amp = 0.0,\n\tampEase = 0.0,\n\tnumBins = 512,\n\tbands = 12;\n\nfunction setupAudio() {\n\tmic = new p5.AudioIn();\n\tmic.start();\n\tfftRaw = new p5.FFT(0.75, numBins);\n\tfftRaw.setInput(mic);\n}\n\nfunction updateAudio() {\n\tfftRaw.analyze();\n\tamp = mic.getLevel() * 1000; // average amplitude\n\tampEase = ease(amp, ampEase, 0.075); // smooth 'amp'\n\twaveform = fftRaw.waveform(); // array (-1, 1)\n\tfft = fftRaw.logAverages(fftRaw.getOctaveBands(bands)); // array (0, 255)\n}"
+    }
+  ]
+}
