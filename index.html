@@ -362,7 +362,7 @@ function println(msg){
 			,"Tapestry 1_Jonas_von_Arb_Timo_Reber"
 			,"vaidehi_tim"
 			,"jonathan-m_michelle-l"
-			,"P5L_lena_celine_withaudio_20190612121609"
+			,"P5L_lena_celine_withaudio_20190612125345"
 			,"recode_celine_cian_2"
 			,"recode_Celine_Cian"
 			,"P5L_Compart_Nr. 11_20190612121310"
@@ -492,11 +492,12 @@ function println(msg){
 			// let ts = {};
 			// ts.fileName = "P5L_reactive-recode-final_20190611232542";
 			// ts.code = importSketch('sketches/'+ts.fileName+'.json').sketches[0].sketchCode
-
+			// console.log(sketchesList);
 
 			for(var i=0; i<sketchesList.length; i++){
 				let s = {};
 				s.fileName = sketchesList[i];
+				 console.log(s.fileName);
 				let codeImport = importSketch('sketches/'+sketchesList[i]+'.json').sketches[0].sketchCode;
 				let sketchCredits = codeImport;
 				// console.log(codeImport)
@@ -622,7 +623,7 @@ function println(msg){
 				var sketchLoadCredits = sketchLoadCreditsRegEx.exec(sketchCredits);
 				if(sketchLoadCredits != undefined){
 					let credits = JSON.parse(sketchLoadCredits[0].replace('credits = ', ''));
-					console.log(credits);
+					//console.log(credits);
 				}
 
 
