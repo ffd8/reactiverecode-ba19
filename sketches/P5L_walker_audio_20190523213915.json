@@ -1,8 +1,0 @@
-{
-  "sketches": [
-    {
-      "sketchName": "walker_audio",
-      "sketchCode": "let credits = {\"student_names\": \"firstname lastname, firstname2 lastname2\",\"recode_artist\": \"Artist[s] firstname lastname\",\"recode_title\": \"Name of work\",\"recode_year\": 1961 }\nlet px, py;\n\nfunction setup() {\n\tcreateCanvas(windowWidth, windowHeight);\n\tstroke(255);\n\tsetupAudio();\n}\n\nfunction draw() {\n\t/* audio vars: amp, ampEase, fft, waveform */\n\tupdateAudio();\n\tstrokeWeight(.5 + ampEase * .0125);\n\tlet scl = .0000001;\n\tlet vx = .01 + (ampEase * scl);\n\tlet vy = .012 + (ampEase * scl);\n\tlet x = noise(frameCount * vx) * width;\n\tlet y = noise(100 + frameCount * vy) * height;\n\tline(x, y, px, py)\n\n\tpx = x;\n\tpy = y;\n}\n/* END RECODE */\n\n\n/* AUDIO INIT */\nlet mic, fftRaw, fft, waveform, amp = 0.0,\n\tampEase = 0.0,\n\tnumBins = 512,\n\tbands = 12;\n\nfunction setupAudio() {\n\tmic = new p5.AudioIn();\n\tmic.start();\n\tfftRaw = new p5.FFT(0.75, numBins);\n\tfftRaw.setInput(mic);\n}\n\nfunction updateAudio() {\n\tfftRaw.analyze();\n\tamp = mic.getLevel() * 1000; // average amplitude\n\tampEase = ease(amp, ampEase, 0.075); // smooth 'amp'\n\twaveform = fftRaw.waveform(); // array (-1, 1)\n\tfft = fftRaw.logAverages(fftRaw.getOctaveBands(bands)); // array (0, 255)\n}"
-    }
-  ]
-}

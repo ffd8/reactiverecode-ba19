@@ -1,8 +1,0 @@
-{
-  "sketches": [
-    {
-      "sketchName": "torus_audio",
-      "sketchCode": "let credits = {\"student_names\": \"firstname lastname, firstname2 lastname2\",\"recode_artist\": \"Artist[s] firstname lastname\",\"recode_title\": \"Name of work\",\"recode_year\": 2019 } \nfunction setup() {\n\tcreateCanvas(windowWidth, windowHeight, WEBGL);\n\tangleMode(DEGREES)\n\tsetupAudio();\n}\n\nfunction draw() {\n\t/* audio vars: amp, ampEase, fft, waveform */\n\tupdateAudio();\n\torbitControl(5)\n\trotateY(frameCount * .2)\n\tbackground(0)\n\t// noStroke();\n\tnoFill();\n\tstroke(255)\n\tlights();\n\t// stroke(255)\n\t// noFill();\n\tlet lc = 5\n\tfor(let i = 0; i < lc; i++) {\n\t\tlet f = fft[floor(map(i, 0, lc - 1, 0, fft.length))]\n\t\tlet wf = waveform[floor(map(i, 0, lc - 1, 0, waveform.length))]\n\n\t\tpush()\n\t\ttranslate(0, 0, i * 20)\n\t\ttorus(f, ampEase * .1, 5, 5)\n\t\tpop();\n\t}\n\n}\n\n/* AUDIO INIT */\nlet mic, fftRaw, fft, waveform, amp = 0.0,\n\tampEase = 0.0,\n\tnumBins = 512,\n\tbands = 12;\n\nfunction setupAudio() {\n\tmic = new p5.AudioIn();\n\tmic.start();\n\tfftRaw = new p5.FFT(0.75, numBins);\n\tfftRaw.setInput(mic);\n}\n\nfunction updateAudio() {\n\tfftRaw.analyze();\n\tamp = mic.getLevel() * 1000; // average amplitude\n\tampEase = ease(amp, ampEase, 0.075); // smooth 'amp'\n\twaveform = fftRaw.waveform(); // array (-1, 1)\n\tfft = fftRaw.logAverages(fftRaw.getOctaveBands(bands)); // array (0, 255)\n}"
-    }
-  ]
-}
