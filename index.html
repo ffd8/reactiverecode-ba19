@@ -64,7 +64,7 @@
 			font-size:10pt;
 			color:#fff;
 			text-align:left;
-			border-right:1px solid #444;*/
+			/*border-right:1px solid #444;*/*/
 
 		}
 		.p5-info-col{
@@ -77,11 +77,18 @@
 
 		}
 		#p5-info-desc{
-			position:absolute;
 			padding:5px;
-			height:50%;
-			overflow:auto;
+			/*height:100%;*/
+			/*border:1px solid #666;*/
 			/*font-size:12pt;*/
+			/*background:#052544;*/
+						/*overflow:auto;*/
+
+		}
+		#p5-info-holder{
+			position:absolute;
+			height:100%;
+			overflow:auto;
 		}
 		#p5-info-code{
 			background:none;
@@ -92,9 +99,7 @@
 			color:#fff;
 			border:1px solid #fff;
 			padding:10px;
-			font-size:12pt;
 			display:none;
-
 		}
 		#p5-editor{
 			position:fixed;
@@ -103,12 +108,11 @@
 			z-index:9999;
 			overflow:hidden;
 			border:none;
-			font-size:10pt;
 			padding:10px;
 		}
 		#p5-code{
-			top:50px;
-			height:calc(100% - 50px);
+			top:0px;
+			height:calc(100% );
 			width:100%;
 			/*border-top:1px solid #222;*/
 		}
@@ -116,8 +120,11 @@
 			position:fixed;
 			z-index:9999;
 			top:5px;
-			left:260px;
+			right:0px;
 
+		}
+		#moreinfo-contents{
+			margin-bottom:15px;
 		}
 		.p5-button{
 			font-size:15pt;
@@ -127,7 +134,7 @@
 			cursor:pointer;
 			float:left;
 			margin-right:10px;
-			/*background:#000;*/
+			background:#000;
 		}
 		.p5-button:hover{
 			opacity: 1;
@@ -136,21 +143,21 @@
 			opacity: 1;
 		}
 		#p5-info-sketches{
-			position:absolute;
-			bottom:0;
+			/*position:absolute;*/
+			/*bottom:0;*/
 			width:100%;
-			height:50%;
-			overflow:auto;
-			border-top:1px solid #222;
+			/*height:50%;*/
+			/*overflow:auto;*/
+			/*border-top:1px solid #222;*/
 
 			/*font-size:8pt;*/
 		}
 		.p5-info-sketch{
-			/*margin:5px;*/
+			margin: 5px 0 5px 0;
 			width:100%;
 			height:auto;
 			min-height:75px;
-			padding:5px;
+			padding:5px 0 5px 0;
 			/*margin-bottom:5px;*/
 			background-size:cover;
 			background-position: center; 
@@ -158,8 +165,7 @@
 			cursor:pointer;
 			/*font-size:8pt;*/
 			/*background:none;*/
-			border-bottom:1px solid #888;
-
+			/*border:1px solid #444;*/
 		}
 		.p5-info-sketch:hover{
 			opacity: 1;
@@ -169,14 +175,18 @@
 		}
 		.p5-info-sketch-sel{
 			opacity:1;
-			background:#444 !important; /* 0018AB */
+			background:#000 !important; /* 0018AB */
+			border-top:1px solid #fff;
+			border-bottom:1px solid #fff;
 		}
 		.p5-info-sketch-sel .sketch-image, .p5-info-sketch-sel .sketch-details{
 			display:block;
 		}
 		.sketch-image{
 			margin-top:5px;
-			height:100px;
+			/*height:100px;*/
+			width:100%;
+			max-height:400px;
 		}
 		.subhead:first-child{
 			margin-top:0;
@@ -193,9 +203,9 @@
 			left:0;
 			z-index:9998;
 			background:#000;
-			opacity:.75;
+			opacity:1;
 			padding:0px;
-
+			width:250px;
 		}
 		#moreinfo{
 			text-decoration: underline;
@@ -217,8 +227,11 @@
 	<div id="p5-info">
 		<div id="p5-info-bg"></div>
 		<div id="p5-info-content">
+			<div id="p5-info-holder" class="scroller">
 				<div id="p5-info-desc" class="scroller">
-					<span class="p5-header" onclick="toggleInfo();">&#x3C;REACTIVE RECODE&#x3E;</span><br>
+					<span class="p5-header" onclick="toggleInfo();">&#x3C;REACTIVE RECODE&#x3E;</span>
+					<br>(click to close)
+					<br><br>
 					INTRO INTERACTION II<br>
 					BA 1st YEAR, SPRING 2019<br>
 					<a href="http://thebaselschoolofdesign.ch/" target="_blank">THE BASEL SCHOOL OF DESIGN</a><br> 
@@ -226,24 +239,23 @@
 					Recoding <a href="http://dada.compart-bremen.de/" target="_blank">computer pioneer works</a> as inspiration for audio-reactive visuals. <br>
 					Coded with <a href="http://p5js.org/" target="_blank">p5.js</a> via <a href="https://teddavis.org/p5live/" target="_blank">P5LIVE</a>. 
 					<br><br>
-					<a id="moreinfo" style="display:none;" onclick="showmore();">Read more...</a> 
+					<a id="moreinfo" onclick="showmore();">Read more...</a> 
 					<br><br>
 					<div id="moreinfo-contents" style="display:none;">
-						... coming soon!<br>
-						<div style="display:none;">
-							Students explored new territory their source image brought them to, while investigating today's possibilities of real-time generative graphics in the web browser with audio as a primary input.
-						</div>
-						 
+					
+						After selecting an early computer art work, the students attempted to recreate the work as true to formstudents explored new territory their source image brought them to, while investigating today's possibilities of real-time generative graphics in the web browser with audio as a primary input.
+					</div>
+					<div>SKETCHES</div>
+					<div id="p5-info-sketches">
+					
 					</div>
 				</div>
-				<div id="p5-info-sketches" class="scroller">
-					
-				</div>
+			</div>
 					
 				
 				<div id="p5-editor">
 					<div id="p5-buttons">
-						<div id="p5-hide" class="p5-button" onclick="toggleInfo()">HIDE</div>	
+						<div id="p5-hide" style="display:none;" class="p5-button" onclick="toggleInfo()">HIDE</div>	
 						<div id="p5-recompile" class="p5-button" onclick="recompile()">RECOMPILE</div>
 					</div>
 					
@@ -332,7 +344,8 @@ function println(msg){
 		pLen = 0, 
 		markerID = [],
 		errorTimer,
-		sketches = []
+		sketches = [],
+		psketch = 0
 		;
 
 		// beautify!
@@ -391,23 +404,64 @@ function println(msg){
 
 		});
 		p5editor.style.visibility = 'visible';
-		p5code.style.fontSize = '12pt';
+		p5code.style.fontSize = '15pt';
 
+		/* CMD-KEYS (remove key conflicts) */
+		editor.commands.removeCommands(['gotoright','movelinesup', 'movelinesdown', 'gotolinestart', 'splitline', 'gotolineend', 'golineup', 'jumptomatching', 'golinedown', 'transposeletters', 'find']);
+
+		// replace backspace w/o ctrl + h
+		editor.commands.addCommand({
+			name: 'backspace',
+			bindKey: { win: 'Shift-Backspace|Backspace', mac: 'Ctrl-Backspace|Shift-Backspace|Backspace' },
+			exec: function(e) { e.remove('left') },
+			multiSelectAction: 'forEach',
+			scrollIntoView: 'cursor'
+		});
+
+		// replace gotoright w/o ctrl + f
+		editor.commands.addCommand({
+			name: 'gotoright',
+			bindKey: { win: 'Right', mac: 'Right' },
+			exec: function(e,t) { e.navigateRight(t.times) },
+			multiSelectAction: 'forEach',
+			scrollIntoView: 'cursor',
+			readOnly:!0
+		});
+
+		// replace golineup w/o ctrl + p
+		editor.commands.addCommand({
+			name: 'golineup',
+			bindKey: { win: 'Up', mac: 'Up' },
+			exec: function(e,t) { e.navigateUp(t.times) },
+			multiSelectAction: 'forEach',
+			scrollIntoView: 'cursor',
+			readOnly:!0
+		});
+
+		// replace golinedown w/o ctrl + n
+		editor.commands.addCommand({
+			name: 'golinedown',
+			bindKey: { win: 'Down', mac: 'Down' },
+			exec: function(e,t) { e.navigateDown(t.times) },
+			multiSelectAction: 'forEach',
+			scrollIntoView: 'cursor',
+			readOnly:!0
+		});
 
 
 		// BACKGROUND ON CODE
-		// editor.renderer.on('afterRender', function(){
-		// 	adjustLines();
-		// });
+		editor.renderer.on('afterRender', function(){
+			adjustLines();
+		});
 
-		// function adjustLines(){
-		// 	var pcode = document.getElementsByClassName('ace_line');
-		// 	for(var i=0; i < pcode.length; i++){
-		// 		var pitem = pcode[i];
-		// 		var pcontents = pitem.innerHTML;
-		// 			pitem.innerHTML = '<span class="ace_line_bg" style="background:#001122;">' + pcontents + '</span>';
-		// 	}
-		// }
+		function adjustLines(){
+			var pcode = document.getElementsByClassName('ace_line');
+			for(var i=0; i < pcode.length; i++){
+				var pitem = pcode[i];
+				var pcontents = pitem.innerHTML;
+					pitem.innerHTML = '<span class="ace_line_bg" style="background:#112233;">' + pcontents + '</span>';
+			}
+		}
 
 		// editor.setOption("wrap", true)
 		var includeScripts = [{
@@ -441,6 +495,7 @@ function println(msg){
 			let infodiv = document.getElementById('p5-info');
 			if(infodiv.style.display == 'none'){
 				infodiv.style.display = 'block';
+				editor.focus();
 			}else{
 				infodiv.style.display = 'none';
 			}
@@ -520,7 +575,7 @@ function println(msg){
 			// sketches.unshift(ts);
 
 			let sketchesHTML = '';
-			for(var i=0; i<sketches.length; i++){
+			for(var i=1; i<sketches.length; i++){
 				let sketchBG = 'background-image:url(\'sketches/'+sketches[i].fileName+'.jpg\');';
 				let sHTML = '<div class="p5-info-sketch" id="sketch_'+i+'" style="'+sketchBG+'" onclick="loadSketch('+i+')">';
 					if(i > 0){
@@ -544,11 +599,15 @@ function println(msg){
 		}
 
 
-		// console.log(sketches)
 		// load sketch
+		
 		function loadSketch(sketch){
 			//let importCode = importSketch('sketches/P5L_sphere_fft_20190523213915.json');
 			// editor.setValue(importCode.sketches[0].sketchCode, 1);
+
+			if(psketch == sketch && sketch != 0){
+				sketch = 0;
+			}
 
 			if(sketches[sketch].code != undefined){
 				let sels = document.getElementsByClassName('p5-info-sketch-sel')
@@ -566,7 +625,8 @@ function println(msg){
 					location.replace("#"+sketch);
 				}
 			}
-			 
+			
+			psketch = sketch;
 			// editor.setReadOnly(true);	
 		}
 
@@ -672,8 +732,8 @@ function println(msg){
 			map[event.keyCode] = event.type == 'keydown';
 			
 			if(map[16] && map[17]){
-				addSnippet(event.key);
-				event.preventDefault();
+				//addSnippet(event.key);
+				//event.preventDefault();
 			}else if(!map[16] && map[17]){ // check !shift and √control
 				if(event.keyCode == 69){ // e = editor toggle
 					toggleInfo();
@@ -694,12 +754,6 @@ function println(msg){
 				}else if(event.keyCode == 83){ // s = save PNG
 					savePNG();
 					event.preventDefault();
-				}else if((event.keyCode >= 48 && event.keyCode <= 57)){ 
-					// *** switch to keyboard??
-					// var keySketch = event.keyCode - 49;
-					// if(keySketch == -1){keySketch = 9;}
-					// loadSketch(listSketches(settings.sketches)[keySketch]); // FIX PRESETS
-					event.preventDefault();
 				}else if(event.key == 'i'){
 					pop720(); // IG window size
 				}
@@ -712,7 +766,7 @@ function println(msg){
 		}
 
 		p5code.onkeyup = function(event) {
-			map[event.keyCode] = event.type == 'keydown';
+			//map[event.keyCode] = event.type == 'keydown';
 			// if(!settings.cocoding.active){
 			// 	localStorage[settings.fileName] = editor.getValue();
 			// }
@@ -854,47 +908,6 @@ function println(msg){
 			}
 		}
 
-
-		// // toggle fullscreen
-		// function fullscreenToggle(){
-		// 	fullscreenUpdate();
-		// }
-
-		// function fullscreenUpdate(){
-		// 	checkToggle('fullscreenMode', settings.fullscreenMode, settingsFullscreen);
-		// 	if(settings.fullscreenMode){
-		// 		if(sketchLoaded){
-		// 			openFullscreen();
-		// 			editorToggleUpdate();
-		// 		}
-		// 	}else{
-		// 		if(sketchLoaded){
-		// 			closeFullscreen();
-		// 		}
-		// 	}
-		// }
-
-
-		// //cursor toggle
-		// function cursorToggle(){
-		// 	settings.canvasCursor = !settings.canvasCursor;
-		// 	cursorToggleUpdate();
-		// }
-
-		// function cursorToggleUpdate(){
-		// 	checkToggle('canvasCursor', settings.canvasCursor, settingsCanvasCursor);
-		// 	if(sketchLoaded){
-		// 		if(!settings.canvasCursor){
-		// 			p5f.noCursor();
-		// 			p5frameCover.style.cursor = 'none';
-		// 		}else{
-		// 			p5f.cursor();
-		// 			p5frameCover.style.cursor = 'crosshair';
-		// 		}
-		// 	}
-		// }
-
-		
 
 		// constant frameCount (great for recompiling)
 		var fcTimer = setInterval(function(){
