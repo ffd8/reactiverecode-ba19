@@ -1,0 +1,8 @@
+{
+  "sketches": [
+    {
+      "sketchName": "test",
+      "sketchCode": "let credits = { \n    \"student_names\": \"firstname lastname, firstname2 lastname2\", \n    \"recode_artist\": \"Artist[s] firstname lastname\", \n    \"recode_title\": \"Name of work\", \n    \"recode_year\": 1961 \n} \n\nfunction setup() {\n\tcreateCanvas(windowWidth, windowHeight);\n\tfill(255);\n\tsetupAudio();\n}\n\nfunction draw() {\n\tupdateAudio();\n\tbackground(0);\n\ttextSize(20+ampEase);\n\ttext(\"hello, I'm a template!\", 0, height / 2, width, height/2)\n\n}\n\n/* AUDIO INIT */\nlet mic, fftRaw, fft = [],\n\twaveform = [],\n\tamp = 0.0,\n\tampStereo = {\n\t\tl: 0.0,\n\t\tr: 0.0\n\t},\n\tampEase = 0.0,\n\tnumBins = 512,\n\tbands = 12;\n\nfunction setupAudio() {\n\tuserStartAudio();\n\tmic = new p5.AudioIn();\n\tmic.start();\n\tfftRaw = new p5.FFT(0.75, numBins);\n\tfftRaw.setInput(mic);\n}\n\nfunction updateAudio() {\n\tfftRaw.analyze();\n\tamp = mic.getLevel() * 1000; // average mixed amplitude\n\tampStereo.l = mic.amplitude.getLevel(0) * 500; // average left amplitude\n\tampStereo.r = mic.amplitude.getLevel(1) * 500; // average right amplitude\n\tampEase = ease(amp, ampEase, 0.075); // smooth 'amp'\n\twaveform = fftRaw.waveform(); // array (-1, 1)\n\tfft = fftRaw.logAverages(fftRaw.getOctaveBands(bands)); // array (0, 255)\n}"
+    }
+  ]
+}

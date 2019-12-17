@@ -13,6 +13,14 @@
 	<meta name="apple-mobile-web-app-title" content="REACTIVE–RECODE">
 	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
 
+	<script type="text/javascript">
+		// update sketches list here!
+		var sketchesList = [
+			"P5L_reactive-recode-final_20190612000506"
+			,"template"
+		]
+	</script>
+
 	<!-- Style -->
 	<link rel="stylesheet" type="text/css" media="all" href="style.css?7">
 	<style type="text/css">
@@ -216,8 +224,9 @@
 					</div>
 					
 					<div class="scroll_content scroller" >
+						BA19 EDITION<br>
 						INTRO INTERACTION I<br>
-						BA 1. YEAR, FALL 2019<br>
+						BA 1ST YEAR, FALL 2019<br>
 						<a href="http://thebaselschoolofdesign.ch/" target="_blank">THE BASEL SCHOOL OF DESIGN</a><br> 
 						LECTURER: <a href="https://teddavis.org" target="_blank">TED DAVIS</a><br><br>
 						Recoding <a href="http://dada.compart-bremen.de/" target="_blank">computer pioneer works</a> as inspiration for audio-reactive visuals. <br>
@@ -328,7 +337,7 @@ function println(msg){
 		'use strict'
 
 		/* INIT */
-		let currentRevision = 1;
+		let currentRevision = 2;
 
 		// init vars
 		let p5editor = document.getElementById('p5-editor'),
@@ -373,9 +382,6 @@ function println(msg){
 			'e4x': false
 		}
 
-		let sketchesList = [
-			"P5L_reactive-recode-final_20190612000506"
-		]
 
 
 		// init editor 
@@ -453,16 +459,16 @@ function println(msg){
 			}
 		}
 
-		// editor.setOption("wrap", true)
+			// editor.setOption("wrap", true)
 		var includeScripts = [{
 			'local':'includes/p5/p5.min.js',
-			'remote':'https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.min.js'
-		}, {
+			'remote':'https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.min.js'
+		},{
 			'local':'includes/p5/addons/p5.dom.min.js',
-			'remote':'https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js'
+			'remote':'https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/addons/p5.dom.min.js'
 		}, {
 			'local':'includes/p5/addons/p5.sound.min.js',
-			'remote':'https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.sound.min.js'
+			'remote':'https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/addons/p5.sound.min.js'
 		}];
 
 		
@@ -472,7 +478,7 @@ function println(msg){
 		window.document.addEventListener('myEvent', handleEvent, false)
 		function handleEvent(e) {
 			// sketchloaded
-			console.log(e);
+			// console.log(e);
 			if(e.detail.status){
 				sketchLoaded = true;
 			}else{
@@ -547,7 +553,6 @@ function println(msg){
 			for(var i=0; i<sketchesList.length; i++){
 				let s = {};
 				s.fileName = sketchesList[i];
-				 console.log(s.fileName);
 				let codeImport = importSketch('sketches/'+sketchesList[i]+'.json').sketches[0].sketchCode;
 				let sketchCredits = codeImport;
 				// console.log(codeImport)
@@ -693,7 +698,7 @@ function println(msg){
 				iFrameBody.appendChild(s);
 				// set dynamic html as iframe srcdoc
 				p5frame.srcdoc = el.innerHTML;
-				document.getElementById('p5-info-code').innerHTML = editor.getValue();
+				// document.getElementById('p5-info-code').innerHTML = editor.getValue();
 				//console.log(p5frame.srcdoc);
 			}catch(e){
 				console.log(e);
@@ -732,8 +737,8 @@ function println(msg){
 					cursorToggle();
 					event.preventDefault();
 				}else if(event.keyCode == 70){ // f = fullscreen
-					fullscreenToggle();
-					event.preventDefault();
+					//fullscreenToggle();
+					//event.preventDefault();
 				}else if(event.keyCode == 13){ // enter = recompile
 					forceRecompile = true;
 					recompile();
@@ -756,11 +761,23 @@ function println(msg){
 		}
 
 		p5code.onkeyup = function(event) {
-			//map[event.keyCode] = event.type == 'keydown';
-			// if(!settings.cocoding.active){
-			// 	localStorage[settings.fileName] = editor.getValue();
-			// }
 			checkErrors();			
+		};
+
+		p5code.onkeydown = function(event) {
+			map[event.keyCode] = event.type == 'keydown';
+			
+			if(!map[16] && map[17]){ // check for !shift + √control
+				if(event.keyCode == 84){ // t = tidy code
+					tidyCode();
+					event.preventDefault();
+				}
+			}
+		}
+
+		p5code.onkeyup = function(event) {
+			map[event.keyCode] = event.type == 'keydown';
+			// checkErrors();	// ** maybe turn back on>?		
 		};
 
 		function checkErrors(){
@@ -827,19 +844,6 @@ function println(msg){
 			return '#' + (0x1000000 + rgb).toString(16).slice(1)
 		}
 
-		function loadScripts(elm){
-			if(settings.debugMode){console.log(settings.scripts);}
-			for(var i=0; i < settings.scripts.length; i++){
-				elm.appendChild(loadScript(settings.scripts[i]));
-			}
-		}
-
-		function loadScript(scriptPath){
-			var ps = document.createElement('script');
-			ps.type = 'text/javascript';
-			ps.src = scriptPath;
-			return ps;
-		}
 
 		function addCode(codeBase, codeInsert, funName, codePos){
 			var tempCode, tempPos = addPosition(codeBase, funName);
@@ -941,7 +945,7 @@ function println(msg){
 
 		function savePNG(){
 			if(sketchLoaded){
-				p5f.save('P5L_' + settings.fileName + '_' + timeStamp() + '.png');
+				p5f.save('REACTIVE-RECODE_' + timeStamp() + '.png');
 			}
 		}
 		
@@ -954,17 +958,14 @@ function println(msg){
 		/* iFrame magic */
 
 		// get mouse clicks on top
-		// *** crazy magic, inspired from here:
+		// initially inspired from here:
 		// https://stackoverflow.com/a/44143731/10885535
-		window.addEventListener('mousemove', passMouse);
+		window.addEventListener('mousemove', passMouseClick);
 		window.addEventListener('mouseup', passMouseClick);
 		window.addEventListener('mousedown', passMouseClick);
 		
-		var fields = ['pageX','pageY','screenX', 'screenY', 'clientX', 
-		'clientY','ctrlKey', 'altKey', 'shiftKey', 'metaKey',
-		'button', 'buttons', 'relatedTarget', 'region'];
 		
-		var pass = false;
+		let pass = false;
 		function passMouse(event){
 			pass = !pass;
 			if (pass) {
@@ -975,9 +976,11 @@ function println(msg){
 		function passMouseClick(event){
 			processMouse(event);
 		};
-
-		function getOpts(event){
-			var opts = {};
+		
+		let mouseFields = ['altKey', 'clientX', 'clientY', 'composed', 'ctrlKey', 'isTrusted', 'layerX', 'layerY', 'metaKey', 'movementX', 'movementY', 'offsetX', 'offsetY', 'pageX', 'pageY', 'screenX', 'screenY', 'shiftKey', 'x', 'y', 'button', 'buttons', 'relatedTarget', 'region'];
+		
+		function getOpts(event, fields){
+			let opts = {};
 				fields.forEach(function(f) {
 					if (f in event) {
 						opts[f] = event[f];
@@ -985,44 +988,41 @@ function println(msg){
 				});
 			return opts;
 		}
-
+		
 		function processMouse(event){
-			var opts = getOpts(event);
-			var copy = new MouseEvent(event.type, opts);
+			let opts = getOpts(event, mouseFields);
+			let copy = new MouseEvent(event.type, event);
+			
 			p5f.dispatchEvent(copy);
+			
 
+			// prevent drag+drop+shift of code, while mouseDragging visuals
+			if(event.type == 'mousedown'){
+				editor.setReadOnly(true);
+			}else if(event.type == 'mouseup'){
+					editor.setReadOnly(false);
+				
+			} 
+			
 		}
 
 
 		// pass keys on down
 		// tips: https://stackoverflow.com/questions/596481/
-		window.addEventListener('keydown', function(ev) {
-			sendKey(ev.type, ev, p5f);
-		});
+		window.addEventListener('keydown', sendKey);
+		window.addEventListener('keyup', sendKey);
 
-		window.addEventListener('keyup', function(ev) {
-			sendKey(ev.type, ev, p5f);
-		});
+		let keyFields = ['altKey', 'bubbles', 'cancelBubble', 'cancelable', 'charCode', 'code', 'composed', 'ctrlKey', 'isTrusted', 'key', 'keyCode', 'location', 'metaKey', 'repeat', 'returnValue', 'shiftKey', 'type', 'which'];
+		
 
-		function keyOpts(ev){
-			var e = {};
-			e.key=ev.key; 
-			e.keyCode=ev.keyCode; 
-			e.which=ev.keyCode; 
-			e.altKey=ev.altKey; 
-			e.ctrlKey=ev.ctrlKey; 
-			e.shiftKey=ev.shiftKey; 
-			e.metaKey=ev.metaKey; 
-			e.code=ev.code; 
-			return e;
+		function sendKey(event){
+			let opts = getOpts(event, keyFields);
+			let copy = new KeyboardEvent(event.type, event);
+
+			
+			p5f.dispatchEvent(copy);
+			
 		}
-
-		function sendKey(type, ev, elm){
-			var opts = keyOpts(ev);
-			var copy = new KeyboardEvent(type, opts);
-			elm.dispatchEvent(copy);
-		}
-
 
 
 		
