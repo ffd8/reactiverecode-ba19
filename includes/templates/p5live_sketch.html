@@ -99,13 +99,13 @@
 		};
 
 		// forward mouse/key events to parent
-		document.addEventListener('mousemove', forwardMouse);
-		document.addEventListener('mouseup', forwardMouse);
-		document.addEventListener('mousedown', forwardMouse);
+		// document.addEventListener('mousemove', forwardMouse);
+		// document.addEventListener('mouseup', forwardMouse);
+		// document.addEventListener('mousedown', forwardMouse);
 
-		function forwardMouse(event){
-			window.parent.passMouseClick(event);
-		}
+		// function forwardMouse(event){
+		// 	window.parent.passMouseClick(event);
+		// }
 
 		document.addEventListener('keydown', forwardKey);
 		document.addEventListener('keyup', forwardKey);
